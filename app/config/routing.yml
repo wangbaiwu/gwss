@@ -1,0 +1,14 @@
+cscc_user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+cscc_ui:
+    resource: "@UiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+cscc_data:
+    resource: "@DataBundle/Controller/"
+    type:     annotation
+    prefix:   /

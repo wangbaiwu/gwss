@@ -1,0 +1,64 @@
+<ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+    <li class="sidebar-toggler-wrapper hide">
+        <div class="sidebar-toggler"> </div>
+    </li>
+    <li class="nav-item start active open">
+        <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="icon-home"></i>
+            <span class="title">Dashboard</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
+        </a>
+        <ul class="sub-menu">
+            <li class="nav-item start active open">
+                <a href="{{ path('foo') }}" class="nav-link J_menuItem">
+                    <i class="icon-bar-chart"></i>
+                    <span class="title">Foo page</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+
+            <li class="nav-item start ">
+                <a href="{{ url('bar') }}" class="nav-link J_menuItem">
+                    <i class="icon-bulb"></i>
+                    <span class="title">Bar page</span>
+                    <span class="badge badge-success">1</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="heading">
+        <h3 class="uppercase">Features</h3>
+    </li>
+    <li class="nav-item  ">
+        <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="icon-diamond"></i>
+            <span class="title">UI Features</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li class="nav-item start active open">
+                <a href="{{ path('cdr_main') }}" class="nav-link nav-link J_menuItem">
+                    <span class="title">{{ 'Cdr' | trans }}</span>
+                </a>
+            </li>
+            <li class="nav-item  ">
+                <a href="ui_general.html" class="nav-link ">
+                    <span class="title">General Components</span>
+                </a>
+            </li>
+            <li class="nav-item  ">
+                <a href="ui_buttons.html" class="nav-link ">
+                    <span class="title">Buttons</span>
+                </a>
+            </li>
+            <li class="nav-item  ">
+                <a href="ui_confirmations.html" class="nav-link ">
+                    <span class="title">Popover Confirmations</span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+
+</ul>

@@ -1,0 +1,107 @@
+{% extends 'UiBundle:Common:base.html.twig' %}
+
+{% block globalMandatoryStylesheet %}
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    {% stylesheets
+        'bundles/Ui/global/plugins/font-awesome/css/font-awesome.css'
+        'bundles/Ui/global/plugins/simple-line-icons/simple-line-icons.css'
+        'bundles/Ui/global/plugins/bootstrap/css/bootstrap.css'
+        'bundles/Ui/global/plugins/uniform/css/uniform.default.css'
+        'bundles/Ui/global/plugins/bootstrap-switch/css/bootstrap-switch.css'
+    filter="cssrewrite"
+    %}
+<link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block themeGlobalStylesheet %}
+    {% stylesheets
+        'bundles/Ui/global/css/components.css'
+        'bundles/Ui/global/css/plugins.css'
+    filter="cssrewrite"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block themeLayoutStylesheet %}
+    {% stylesheets
+        'bundles/Ui/layout/css/layout.css'
+        'bundles/Ui/layout/css/themes/darkblue.css'
+        'bundles/Ui/layout/css/custom.css'
+        'bundles/Ui/layout/css/contabs.css'
+    filter="cssrewrite"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block headGlobalJavascript %}
+    {% javascripts
+    'bundles/Ui/global/scripts/jquery.js'
+    'bundles/Ui/pages/scripts/socket.io-1.4.5.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block corePluginsJavascript %}
+    {% javascripts
+    'bundles/Ui/global/plugins/bootstrap/js/bootstrap.js'
+    'bundles/Ui/global/plugins/js.cookie.min.js'
+    'bundles/Ui/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js'
+    'bundles/Ui/global/plugins/jquery-slimscroll/jquery.slimscroll.js'
+    'bundles/Ui/global/plugins/jquery.blockui.min.js'
+    'bundles/Ui/global/plugins/uniform/jquery.uniform.js'
+    'bundles/Ui/global/plugins/bootstrap-switch/js/bootstrap-switch.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block pagePluginsJavascript %}
+    <script type="text/javascript" src="bundles/Ui/global/plugins/layer/layer.js"></script>
+{% endblock %}
+
+{% block themeGlobalJavascript %}
+    {% javascripts
+    'bundles/Ui/global/scripts/app.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block themeLayoutJavascript %}
+    {% javascripts
+    'bundles/Ui/layout/scripts/layout.js'
+    'bundles/Ui/layout/scripts/demo.js'
+    'bundles/Ui/layout/scripts/quick-sidebar.js'
+    'bundles/Ui/layout/scripts/contabs.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block footer %}
+<div class="page-footer">
+    <div class="page-footer-inner"> 2016 &copy; ICSOC by WangQi.
+
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageLevelJavascript %}
+    {% javascripts
+    'bundles/Ui/pages/scripts/tel.js'
+    'bundles/Ui/pages/scripts/phone.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+
+

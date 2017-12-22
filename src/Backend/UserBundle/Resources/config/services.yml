@@ -1,0 +1,10 @@
+services:
+#    cscc_user.example:
+#        class: Cscc\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+
+
+    backend.webservice_user_provider:
+        class: Backend\UserBundle\Provider\User\WebserviceUserProvider
+        arguments: ["@service_container"]
+

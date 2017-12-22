@@ -1,0 +1,4 @@
+services:
+#    cscc_ui.example:
+#        class: Cscc\UiBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

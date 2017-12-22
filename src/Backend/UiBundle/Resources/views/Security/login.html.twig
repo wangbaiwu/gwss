@@ -1,0 +1,175 @@
+{% extends 'UiBundle:Common:prime.html.twig' %}
+
+{% block globalMandatoryStylesheet %}
+{#
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+#}
+    {% stylesheets
+        'bundles/Ui/global/plugins/font-awesome/css/font-awesome.css'
+        'bundles/Ui/global/plugins/simple-line-icons/simple-line-icons.css'
+        'bundles/Ui/global/plugins/bootstrap/css/bootstrap.css'
+        'bundles/Ui/global/plugins/uniform/css/uniform.default.css'
+        'bundles/Ui/global/plugins/bootstrap-switch/css/bootstrap-switch.css'
+    filter="cssrewrite"
+    %}
+<link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block themeGlobalStylesheet %}
+    {% stylesheets
+        'bundles/Ui/global/css/components.css'
+        'bundles/Ui/global/css/plugins.css'
+    filter="cssrewrite"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block themeLayoutStylesheet %}
+    {% stylesheets
+        'bundles/Ui/layout/css/layout.css'
+        'bundles/Ui/layout/css/themes/darkblue.css'
+        'bundles/Ui/layout/css/custom.css'
+    filter="cssrewrite"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block pagePluginStylesheet %}
+    {% stylesheets
+	    'bundles/Ui/global/plugins/select2/css/select2.css'
+	    'bundles/Ui/global/plugins/select2/css/select2-bootstrap.min.css'
+    filter="cssrewrite"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block pageStylesheet %}
+	{% stylesheets
+    	'bundles/Ui/pages/css/login-4.css'
+    filter="cssrewrite"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block bodyPartOne %}
+<body class=" login">
+
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a href="index.html">
+            <img src="{{ asset('bundles/Ui/pages/img/logo-big.png') }}" alt="" /> </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="content">
+        <!-- BEGIN LOGIN FORM -->
+        <form class="login-form" action="{{ path('login') }}" method="post">
+            <h3 class="form-title">{{ 'Login to your account'|trans }}</h3>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span> Enter any username and password. </span>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">{{ 'Username'|trans }}</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="{{ 'Username'|trans }}" name="_username" value="{{ username }}" /> </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">{{ 'Agent phone'|trans }}</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="{{ 'Agent phone'|trans }}" name="_agentPhone" value="" /> </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">{{ 'Password'|trans }}</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="{{ 'Password'|trans }}" name="_password" /> </div>
+            </div>
+            <div class="form-actions">
+                <label class="checkbox">
+                    <input type="checkbox" id="remember_me" name="_remember_me" /> {{ 'Remember me' | trans }} </label>
+                <input type="hidden" name="csrf_security_token"
+                       value="{{ csrf_token('login_csrf_token') }}"
+                >
+                <button type="submit" class="btn green pull-right"> {{ 'Login'|trans }} </button>
+            </div>
+
+            {% if error %}
+            <div class="forget-password">
+                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+            </div>
+            {% endif %}
+
+        </form>
+        <!-- END LOGIN FORM -->
+
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+<div class="copyright">Copyright &copy; 2016 ICSOC. All Rights Reserved. 中通天鸿 版权所有</div>
+{% endblock %}
+
+
+{% block rawJavascript %}
+<script type="text/javascript">
+    var _assetsPath = "{{ asset('bundles/Ui/') }}";
+</script>
+
+{% endblock %}
+
+
+{% block corePluginsJavascript %}
+    {% javascripts
+    'bundles/Ui/global/scripts/jquery.js'
+    'bundles/Ui/global/plugins/bootstrap/js/bootstrap.js'
+    'bundles/Ui/global/plugins/js.cookie.min.js'
+    'bundles/Ui/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js'
+    'bundles/Ui/global/plugins/jquery-slimscroll/jquery.slimscroll.js'
+    'bundles/Ui/global/plugins/jquery.blockui.min.js'
+    'bundles/Ui/global/plugins/uniform/jquery.uniform.js'
+    'bundles/Ui/global/plugins/bootstrap-switch/js/bootstrap-switch.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+{% block pagePluginsJavascript %}
+    {% javascripts
+    'bundles/Ui/global/plugins/jquery-validation/js/jquery.validate.js'
+    'bundles/Ui/global/plugins/jquery-validation/js/additional-methods.js'
+    'bundles/Ui/global/plugins/select2/js/select2.full.js'
+    'bundles/Ui/global/plugins/backstretch/jquery.backstretch.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block themeGlobalJavascript %}
+    {% javascripts
+    'bundles/Ui/global/scripts/app.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block pageLevelJavascript %}
+    {% javascripts
+    'bundles/Ui/pages/scripts/login-4.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
+
+

@@ -1,0 +1,223 @@
+<ul class="toolbar-nav pull-left">
+    <li>
+        <a href="#callOutModal" id="dialBtn" data-toggle="modal" title="{{ 'Call out'|trans }}">
+            <i class="icon-call-out"></i>
+        </a>
+    </li>
+    <li>
+        <a href="javascript:void(0);" id="callInBtn" title="{{ 'Call in'|trans }}">
+            <i class="icon-call-in"></i>
+        </a>
+    </li>
+    <li>
+        <a href="javascript:void(0);" id="callEndBtn" title="{{ 'Call end'|trans }}">
+            <i class="icon-call-end"></i>
+        </a>
+    </li>
+    <li>
+        <span id="toolbarPrompt">&nbsp;</span>
+    </li>
+</ul>
+
+<div class="modal fade" id="callOutModal" tabindex="-1" role="callOutModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">{{ 'Call out' | trans }}</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" id="dialForm" action="#">
+
+                    <div class="form-body">
+                        <div class="form-group form-md-line-input has-error">
+                            <label for="form_control_1" class="col-md-3 control-label">{{ 'Call out number'|trans }}</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <input type="text" name="mainTelNum" id="mainTelNum" placeholder="{{ 'Add zero before non-native number'|trans }}" class="form-control">
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button class="btn green-haze" id="callBtn" type="submit">{{ 'Call'|trans }}
+                                            <i class="icon-call-out"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--global start -->
+<script type="text/javascript">
+    //===win var start===
+
+    //TEL系统常量
+    const AGENT_PHONE={{ AGENT_PHONE }};
+
+    //结果常量
+    const RS_SOCKET_CONN_SUC=1001;
+    const RS_ORIGINATE_ERR=1002;
+    const RS_HANGUP_SUC=1003;
+    const RS_HANGUP_ERR=1004;
+
+    //正在进行的状态常量
+    const IN_CALL_OUT=2001;
+
+
+    //===win var end===
+
+    //===win function start===
+    function chkTelNum(telNum)
+    {
+        return /^\d+$/.test(telNum);
+    }
+
+    function toolbarPromptInfo(msg){
+        $('#toolbarPrompt').text(msg);
+    }
+
+    function handleTelResponse(code,data)
+    {
+        switch (code)
+        {
+            case RS_SOCKET_CONN_SUC:
+                toolbarPromptInfo('连接成功');
+                break;
+            case IN_CALL_OUT:
+                toolbarPromptInfo(data.Exten+' 呼叫中...');
+                break;
+            case RS_ORIGINATE_ERR:
+                toolbarPromptInfo('呼叫失败');
+            case RS_HANGUP_SUC:
+                toolbarPromptInfo('挂断成功');
+            default:
+                break;
+        }
+    }
+
+    //===win function start===
+
+
+
+</script>
+
+
+<!--global end -->
+
+<!--tel.js start-->
+<script type="text/javascript">
+    var Tel = function () {
+
+        function telClass(){
+
+
+            var socket = io('http://192.168.8.3:5080');
+            var self=this;
+
+            this.isCalling=false;
+            this.status=1;
+
+
+            this.init=function(){
+                socket.on('conn', function (data) {
+                    self.response(RS_SOCKET_CONN_SUC);
+                    socket.emit('demo', { my: 'data' });
+                });
+                socket.on(IN_CALL_OUT, function(data){
+                    self.response(IN_CALL_OUT,data);
+                });
+                socket.on(RS_SOCKET_CONN_SUC,function(){
+                    self.response(RS_SOCKET_CONN_SUC);
+                });
+                socket.on(RS_ORIGINATE_ERR,function(){
+                    self.response(RS_ORIGINATE_ERR);
+                });
+                socket.on(RS_HANGUP_SUC,function(){
+                    self.response(RS_HANGUP_SUC);
+                });
+
+            };
+
+
+            this.callOut=function(calledNum){
+                socket.emit('callOut', { agentPhone:AGENT_PHONE,called:calledNum });
+            };
+
+            this.hangUp=function(){
+                socket.emit('hangUp');
+            }
+
+            this.response=function(code,data){
+                if(typeof handleTelResponse === 'function')
+                {
+                    handleTelResponse(code,data);
+                }
+            }
+
+
+        }
+
+        var telObj=new telClass();
+        telObj.init();
+
+
+        return {
+            callOut: telObj.callOut,
+            hangUp: telObj.hangUp,
+            isCalling: telObj.isCalling,
+
+        };
+    }();
+</script>
+
+<!--tel.js end-->
+
+
+
+<!--phone.js start-->
+<script type="text/javascript">
+
+    jQuery(document).ready(function() {
+
+        //去除外呼模态框里的已存在输入
+        $('#callOutModal').on('show.bs.modal', function () {
+            $('input[name="mainTelNum"]').val('');
+        });
+
+        $('#dialForm').on('submit',function(e){
+            e.preventDefault();
+            $('#callOutModal').modal('hide')
+            var mainTelNum=$('input[name="mainTelNum"]').val();
+            if(chkTelNum(mainTelNum))
+            {
+                Tel.callOut(mainTelNum);
+            }
+            else
+            {
+                toolbarPromptInfo('{{ 'The number is empty'|trans }}');
+            }
+
+        });
+
+        $('#callEndBtn').on('click',function(){
+            Tel.hangUp();
+        });
+
+
+    });
+
+
+</script>
+
+
+<!--phone.js end-->

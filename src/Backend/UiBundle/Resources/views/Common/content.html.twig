@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    {% block globalMandatoryStylesheet %}{% endblock %}
+    {% block pagePluginStylesheet %}{% endblock %}
+    {% block themeGlobalStylesheet %}{% endblock %}
+    {% block themeLayoutStylesheet %}{% endblock %}
+    {% block pageStylesheet %}{% endblock %}
+    {% block headGlobalJavascript %}{% endblock %}
+
+</head>
+<body>
+
+
+{% block main %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block rawJavascript %}{% endblock %}
+{% block corePluginsJavascript %}{% endblock %}
+{% block pagePluginsJavascript %}{% endblock %}
+{% block themeGlobalJavascript %}{% endblock %}
+{% block pageLevelJavascript %}{% endblock %}
+{% block themeLayoutJavascript %}{% endblock %}
+
+</body>
+</html>
