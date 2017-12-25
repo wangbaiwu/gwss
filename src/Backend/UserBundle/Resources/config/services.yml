@@ -6,5 +6,5 @@ services:
 
     backend.webservice_user_provider:
         class: Backend\UserBundle\Provider\User\WebserviceUserProvider
-        arguments: ["@service_container"]
+        arguments: ["@service_container","@doctrine.orm.entity_manager"]
 

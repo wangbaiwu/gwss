@@ -17,7 +17,6 @@ class DefaultController extends Controller
         $info=$this->get('security.token_storage')->getToken()->getUser();
         $data=array(
             'title'=>'icsoc',
-            'AGENT_PHONE'=>$info->getNO(),
         );
         return $this->render('UiBundle:Default:index.html.twig',$data);
     }

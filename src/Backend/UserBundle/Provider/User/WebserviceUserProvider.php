@@ -13,39 +13,28 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Doctrine\ORM\EntityManager;
 
 class WebserviceUserProvider implements UserProviderInterface
 {
     private $container;
+    private $em;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container,EntityManager $em)
     {
         $this->container=$container;
+        $this->em=$em;
     }
 
     public function loadUserByUsername($username)
     {
-        $dm=$this->container->get('doctrine_mongodb')->getManager();
-        $userData=$dm->getRepository('UserBundle:User')->findOneBy(array('username'=>$username));
-        //验证分机 TODO:upgrade
-        $no=$this->container->get('request_stack')->getCurrentRequest()->request->get('_agentPhone');
-        if($no=intval($no))
-        {
-            $this->container->get('request_stack')->getCurrentRequest()->getSession()->set('_agentPhone',$no);
-        }
-        else
-        {
-            $no=$this->container->get('request_stack')->getCurrentRequest()->getSession()->get('_agentPhone');
-        }
-        $noData=$dm->getRepository('DataBundle:Extension')->findOneBy(array('no'=>intval($no),'isActive'=>true));
-
-        if ($userData && $noData) {
+        $userData=$this->em->getRepository('UserBundle:User')->findOneBy(array('username'=>$username));
+        if ($userData) {
             $password = $userData->getPassword();
             $salt='';
             $roles=array('ROLE_USER');
-            return new WebserviceUser($username, $password, $salt, $roles, $no);
+            return new WebserviceUser($username, $password, $salt, $roles);
         }
-
         throw new UsernameNotFoundException(
             sprintf('Username "%s" does not exist.', $username)
         );
@@ -64,6 +53,6 @@ class WebserviceUserProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $class === 'Cscc\UserBundle\Provider\User\WebserviceUser';
+        return $class === 'Backend\UserBundle\Provider\User\WebserviceUser';
     }
 }

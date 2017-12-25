@@ -5,7 +5,7 @@
  * Time: 17:30
  */
 
-namespace Backend\DataBundle\DataFixtures\ODM;
+namespace Backend\DataBundle\DataFixtures\ORM ;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -18,7 +18,7 @@ class LoadUserData implements FixtureInterface,ContainerAwareInterface
     /**
      * @var ContainerInterface
      */
-    private $container;
+    protected $container;
     /**
      * @param ContainerInterface|null $container
      */
@@ -37,6 +37,7 @@ class LoadUserData implements FixtureInterface,ContainerAwareInterface
         $encoder = $this->container->get('security.password_encoder');
         $encodedPassword = $encoder->encodePassword($userAdmin, $plainPassword);
         $userAdmin->setPassword($encodedPassword);
+        $userAdmin->setEmail('55580611@qq.com');
         $userAdmin->setIsActive(true);
         $manager->persist($userAdmin);
         $manager->flush();

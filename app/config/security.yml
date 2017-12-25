@@ -26,16 +26,14 @@ security:
             ROLE_ADMIN:       ROLE_USER
 
     encoders:
-        Symfony\Component\Security\Core\User\User:
-            algorithm: bcrypt
-            cost: 12
         Backend\UserBundle\Entity\User:
-            algorithm: bcrypt
-            cost: 12
-        Backend\UserBundle\Document\User:
-            algorithm: bcrypt
-            cost: 12
+            algorithm: md5
+            encode_as_base64: false
+            iterations: 1
         Backend\UserBundle\Provider\User\WebserviceUser:
+            algorithm: bcrypt
+            cost: 12
+        Symfony\Component\Security\Core\User\User:
             algorithm: bcrypt
             cost: 12
 
@@ -52,6 +50,9 @@ security:
                 provider: chain_provider
                 login_path: login
                 check_path: login
+                # field names for the username and password fields
+                username_parameter: _username
+                password_parameter: _password
 
             logout:
                 path:   /logout

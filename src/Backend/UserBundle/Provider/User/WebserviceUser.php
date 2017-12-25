@@ -17,16 +17,13 @@ class WebserviceUser implements UserInterface, EquatableInterface
     private $password;
     private $salt;
     private $roles;
-    //分机号
-    private $no;
 
-    public function __construct($username, $password, $salt, array $roles, $no)
+    public function __construct($username, $password, $salt, array $roles)
     {
         $this->username = $username;
         $this->password = $password;
         $this->salt = $salt;
         $this->roles = $roles;
-        $this->no = $no;
     }
 
     public function getRoles()
@@ -49,12 +46,6 @@ class WebserviceUser implements UserInterface, EquatableInterface
         return $this->username;
     }
 
-    public function getNo()
-    {
-        return $this->no;
-    }
-
-
     public function eraseCredentials()
     {
     }
@@ -74,10 +65,6 @@ class WebserviceUser implements UserInterface, EquatableInterface
         }
 
         if ($this->username !== $user->getUsername()) {
-            return false;
-        }
-
-        if ($this->no !== $user->getNo()) {
             return false;
         }
 
