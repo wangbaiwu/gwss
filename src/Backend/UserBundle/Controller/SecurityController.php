@@ -15,7 +15,7 @@ use Backend\UserBundle\Entity\User;
 
 
 /**
- * @Route("/")
+ * @Route("/admin")
  */
 class SecurityController extends Controller
 {

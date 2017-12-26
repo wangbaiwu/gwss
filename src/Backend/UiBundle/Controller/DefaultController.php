@@ -10,7 +10,7 @@ use Backend\UserBundle\Document\Product;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/",name="main")
+     * @Route("/admin",name="admin_main")
      */
     public function indexAction()
     {
@@ -26,7 +26,6 @@ class DefaultController extends Controller
      */
     public function defaultAction()
     {
-
         return new Response('default page');
     }
 

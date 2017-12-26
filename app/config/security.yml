@@ -48,21 +48,22 @@ security:
             #http_basic: ~
             form_login:
                 provider: chain_provider
-                login_path: login
-                check_path: login
+                login_path: /admin/login
+                check_path: /admin/login
+                default_target_path: admin_main
                 # field names for the username and password fields
                 username_parameter: _username
                 password_parameter: _password
 
             logout:
-                path:   /logout
-                target: /
+                path:   /admin/logout
+                target: /admin
 
             remember_me:
                 secret:   '%secret%'
                 lifetime: 604800
-                path:     /
+                path:     /admin
 
     access_control:
-        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
